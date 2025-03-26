@@ -11,17 +11,6 @@ const handler = require("./handlers");
 
 const bot = new TelegramBot(env.BOT_TOKEN, config.bot);
 
-mongoose
-	.connect(env.MONGODB_URI, config.mongodb)
-	.then(() => {
-		// Commands
-		bot.onText(/\/start/, command.start(bot));
-		bot.onText(/about$/i, command.about(bot));
-		bot.onText(/search$/i, command.search(bot));
-		bot.onText(/settings$/i, command.settings(bot));
-		bot.onText(/\/keyboard/, command.keyboard(bot));
-		bot.onText(/(?<provider>(Movie|Music|Torrent|Anime)$)/, command.list(bot));
-
 		// Handlers
 		bot.on("callback_query", handler.callbackQuery(bot));
 		bot.on("polling_error", handler.botError);
